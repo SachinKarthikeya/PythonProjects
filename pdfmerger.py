@@ -1,13 +1,13 @@
-import PyPDF2
+from PyPDF2 import PdfMerger
+import os
 
-pdfiles = ['1.pdf', '2.pdf']
+merger = PdfMerger()
 
-merger = PyPDF2.PdfMerger()
+for items in os.listdir():
+    if items.endswith('.pdf'):
+        merger.append(items)
 
-for filename in pdfiles:
-    pdfFile = open(filename, 'rb')
-    pdfReader = PyPDF2.PdfReader(pdfFile)
-    merger.append(pdfReader)
+merger.write('final_merged.pdf')
+merger.close()
 
-pdfFile.close()
-merger.write('merged.pdf')
+print('PDFs merged successfully!')
